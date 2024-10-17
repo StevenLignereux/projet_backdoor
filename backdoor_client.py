@@ -1,4 +1,3 @@
-
 import socket
 import time
 
@@ -20,12 +19,13 @@ while True:
 
 # ....
 while True:
-    data_recues = s.recv(MAX_DATA_SIZE)
-    if not data_recues:
+    commande_data = s.recv(MAX_DATA_SIZE)
+    if not commande_data:
         break
-    print("Message : ", data_recues.decode())
-    texte_envoye = input("Vous: ")
-    s.sendall(texte_envoye.encode())
-    
+    commande = commande_data.decode()
+    print("Commande : ", commande)
+    reponse = commande
+    s.sendall(reponse.encode())
+
 
 s.close()

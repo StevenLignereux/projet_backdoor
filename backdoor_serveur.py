@@ -24,12 +24,12 @@ connection_socket, client_address = s.accept()
 print(f"Connexion établie avec {client_address}")
 
 while True:
-    texte_envoye = input("Vous: ")
-    connection_socket.sendall(texte_envoye.encode())
+    commande = input("Commande: ")
+    connection_socket.sendall(commande.encode())
     data_recues = connection_socket.recv(MAX_DATA_SIZE)
     if not data_recues:
         break
-    print("Message : ", data_recues.decode())
+    print(data_recues.decode())
 
 s.close()
 connection_socket.close()
