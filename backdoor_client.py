@@ -38,7 +38,20 @@ while True:
     if not reponse or len(reponse) == 0:
         reponse = " "
 
+    # HEADER 13 octets -> longueur data
+    # DATA (longeur) octets
+
+    # HEADER 000000003173
+
+    # 10000000000000 13 octets
+
+    header = str(len(reponse)).zfill(13)
+
+    print("header:", header)
+
+    s.sendall(header.encode())
     s.sendall(reponse.encode())
 
+    # handshake
 
 s.close()
