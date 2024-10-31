@@ -22,14 +22,17 @@ def socket_receive_all_data(socket_p, data_len):
     total_data = None
 
     # print("socket_receive_all_data len:", data_len)
+
     while current_data_len < data_len:
         chunk_len = data_len - current_data_len
 
         if chunk_len > MAX_DATA_SIZE:
             chunk_len = MAX_DATA_SIZE
+
         data = socket_p.recv(chunk_len)
 
         # print("  len:", len(data))
+
         if not data:
             return None
 
@@ -39,6 +42,7 @@ def socket_receive_all_data(socket_p, data_len):
             total_data += data
 
         current_data_len += len(data)
+
         # print("  total len:", current_data_len, "/", data_len)
     return total_data
 
@@ -46,7 +50,6 @@ def socket_receive_all_data(socket_p, data_len):
 def socket_send_command_and_receive_all_data(socket_p, command):
     if not command:  # if command == ""
         return None
-
     socket_p.sendall(command.encode())
 
     header_data = socket_receive_all_data(socket_p, 13)
@@ -62,7 +65,9 @@ s.bind((HOST_IP, HOST_PORT))
 s.listen()
 
 print(f"Attente de connexion sur {HOST_IP}, port {HOST_PORT}...")
+
 connection_socket, client_address = s.accept()
+
 print(f"Connexion établie avec {client_address}")
 
 while True:
@@ -85,6 +90,7 @@ while True:
 
     if not data_recues:
         break
+
     print(data_recues.decode())
 
 s.close()
