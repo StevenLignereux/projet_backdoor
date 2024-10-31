@@ -1,0 +1,24 @@
+# Bienvenue dans l'univers de Python, le langage préféré des 🐍 !
+# Mais pas de panique, ici, les seules morsures sont des bugs inoffensifs.
+
+print("Salut, développeur ! Prêt pour une aventure en Python ?")
+
+# Une blague classique pour briser la glace
+print("Pourquoi les développeurs Python aiment-ils les serpents ?")
+print("Parce qu'ils sont tous des maîtres du débogage !")
+
+# Exercice amusant : Crée une fonction qui raconte une blague sur le Python
+def raconte_une_blague():
+    blagues = [
+        "Pourquoi Python est-il si intelligent ? Parce qu'il a des boucles infinies de génie !",
+        "Comment appelle-t-on un serpent Python qui aime coder ? Un Byte-thon !",
+        "Pourquoi les développeurs Python sont-ils calmes ? Parce qu'ils savent comment gérer les exceptions !"
+    ]
+    from random import choice
+    return choice(blagues)
+
+# Raconte une blague
+print("Voici une blague pour toi :")
+print(raconte_une_blague())
+
+print("Amuse-toi bien avec Python !")
