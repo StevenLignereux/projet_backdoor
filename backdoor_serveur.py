@@ -10,9 +10,8 @@
 
 import socket
 
-# 127.0.0.1:50725 macOS-10.16-x86_64-i386-64bit /User/Jonathan >
 
-HOST_IP = "127.0.0.1"
+HOST_IP = ""
 HOST_PORT = 32000
 MAX_DATA_SIZE = 1024
 
